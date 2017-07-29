@@ -31,21 +31,27 @@
 
 int main(int argc, char **argv)
 {
-    avr_t avr_val, ini_avr;
+    avr_t avr_val;
     input_t new_val;
 
     /* initialize random seed: */
     srand(time(NULL));
 
-    ini_avr = fma_init(32);
-
-    printf("Initial Average:% 12d\n", (int)ini_avr);
+    fma_init(32);
 
     for (unsigned int i=0; i < 1024; i++) {
         new_val = rand() % MAX_INPUT_VALUE;
         avr_val = fma_calc(new_val);
+#ifdef GNUPLOT_FORMAT
+        /* Example"
+         * plot "data.txt" using 1:2 title 'Input' with lines, "data.txt"\
+         *  using 1:3 title 'Average' with lines
+         */
+        printf("%d %d %d\n", i, (int)new_val, (int)avr_val);
+#else
         printf("New value:% 12d ==> Average:% 12d\n", (int)new_val,
                (int)avr_val);
+#endif
     }
 
     return EXIT_SUCCESS;
