@@ -41,6 +41,14 @@ int main(int argc, char **argv)
 
     for (unsigned int i=0; i < 1024; i++) {
         new_val = rand() % MAX_INPUT_VALUE;
+
+#if !defined(INPUT_RANGE_U32) && !defined(INPUT_RANGE_U16) && \
+    !defined(INPUT_RANGE_U8)
+        if (new_val & 0x1) {
+            new_val *= -1;
+        }
+#endif
+
         avr_val = fma_calc(new_val);
 #ifdef GNUPLOT_FORMAT
         /* Example"
