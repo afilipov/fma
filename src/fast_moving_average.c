@@ -25,14 +25,18 @@
 
 #include "fast_moving_average.h"
 
-#include <string.h>
-
-static uint8_t array_avr[MAX_ARRAY_SIZE] = {0};
+static uint8_t array_avr[MAX_ARRAY_SIZE];
 static mov_avr_t avr_data;
 
 int fma_init(int initial_val)
 {
-    memset(array_avr, initial_val, MAX_ARRAY_SIZE);
+    avr_data.sum = 0;
+    avr_data.pos = 0;
+
+    for (unsigned int i=0; i < MAX_ARRAY_SIZE; i++) {
+        array_avr[i] = initial_val;
+        avr_data.sum += array_avr[i];
+    }
 
     /* return initial average */
     return avr_data.sum >> 4;

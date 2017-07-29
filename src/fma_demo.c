@@ -31,12 +31,14 @@
 
 int main(int argc, char **argv)
 {
-    int avr_val, new_val;
+    int avr_val, new_val, ini_avr;
 
     /* initialize random seed: */
     srand(time(NULL));
 
-    fma_init(0);
+    ini_avr = fma_init(32);
+
+    printf("Initial Average:%03d\n", ini_avr);
 
     for (unsigned int i=0; i < 1024; i++) {
         new_val = rand() % MAX_INPUT_VALUE;
