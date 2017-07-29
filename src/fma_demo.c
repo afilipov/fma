@@ -31,19 +31,21 @@
 
 int main(int argc, char **argv)
 {
-    int avr_val, new_val, ini_avr;
+    avr_t avr_val, ini_avr;
+    input_t new_val;
 
     /* initialize random seed: */
     srand(time(NULL));
 
     ini_avr = fma_init(32);
 
-    printf("Initial Average:%03d\n", ini_avr);
+    printf("Initial Average:% 12d\n", (int)ini_avr);
 
     for (unsigned int i=0; i < 1024; i++) {
         new_val = rand() % MAX_INPUT_VALUE;
         avr_val = fma_calc(new_val);
-        printf("New value:%03d ==> Average:%03d\n", new_val, avr_val);
+        printf("New value:% 12d ==> Average:% 12d\n", (int)new_val,
+               (int)avr_val);
     }
 
     return EXIT_SUCCESS;

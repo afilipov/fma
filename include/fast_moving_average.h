@@ -29,18 +29,68 @@
 #include <limits.h>
 #include <stdint.h>
 
-#define MAX_INPUT_VALUE 255
-
 #define MAX_ARRAY_SIZE 16U
 
-struct moving_average {
-    uint16_t sum:12;
-    uint16_t pos: 4;
-};
+#ifdef INPUT_RANGE_S32
+ #define MIN_INPUT_VALUE INT_MIN
+ #define MAX_INPUT_VALUE INT_MAX
+ struct moving_average {
+     int64_t sum:60;     /* Max value is 60 bits, MAX_ARRAY_SIZE * INT_MAX */
+     int64_t pos: 4;
+ };
+ typedef int32_t input_t;
+ typedef int64_t avr_t;
+#elif INPUT_RANGE_U32
+ #define MIN_INPUT_VALUE 0
+ #define MAX_INPUT_VALUE UINT_MAX
+ struct moving_average {
+     uint64_t sum:60;    /* Max value is 60 bits, MAX_ARRAY_SIZE * UINT_MAX */
+     uint64_t pos: 4;
+ };
+ typedef uint32_t input_t;
+ typedef uint64_t avr_t;
+#elif INPUT_RANGE_S16
+ #define MIN_INPUT_VALUE SHRT_MIN
+ #define MAX_INPUT_VALUE SHRT_MAX
+ struct moving_average {
+     int32_t sum:28;     /* Max value is 28 bits, MAX_ARRAY_SIZE * SHRT_MAX */
+     int32_t pos: 4;
+ };
+ typedef int16_t input_t;
+ typedef int32_t avr_t;
+#elif INPUT_RANGE_U16
+ #define MIN_INPUT_VALUE 0
+ #define MAX_INPUT_VALUE USHRT_MAX
+ struct moving_average {
+     uint32_t sum:28;    /* Max value is 28 bits, MAX_ARRAY_SIZE * USHRT_MAX */
+     uint32_t pos: 4;
+ };
+ typedef uint16_t input_t;
+ typedef uint32_t avr_t;
+#elif INPUT_RANGE_U8
+ #define MIN_INPUT_VALUE 0
+ #define MAX_INPUT_VALUE UCHAR_MAX
+ struct moving_average {
+     uint16_t sum:12;    /* Max value is 12 bits, MAX_ARRAY_SIZE * UCHAR_MAX */
+     uint16_t pos: 4;
+ };
+ typedef uint8_t  input_t;
+ typedef uint16_t avr_t;
+#else
+ #define MIN_INPUT_VALUE SCHAR_MIN
+ #define MAX_INPUT_VALUE SCHAR_MAX
+ struct moving_average {
+     int16_t sum:12;    /* Max value is 12 bits, MAX_ARRAY_SIZE * SCHAR_MIN */
+     int16_t pos: 4;
+ };
+ typedef int8_t  input_t;
+ typedef int16_t avr_t;
+#endif
+
 typedef struct moving_average mov_avr_t;
 
-int fma_init(int initial_val);
+avr_t fma_init(input_t initial_val);
 
-int fma_calc(int current_val);
+avr_t fma_calc(input_t current_val);
 
 #endif

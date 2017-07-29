@@ -25,10 +25,23 @@
 
 #include "fast_moving_average.h"
 
-static uint8_t array_avr[MAX_ARRAY_SIZE];
+#ifdef INPUT_RANGE_S32
+ static int32_t  array_avr[MAX_ARRAY_SIZE];
+#elif INPUT_RANGE_U32
+ static uint32_t array_avr[MAX_ARRAY_SIZE];
+#elif INPUT_RANGE_S16
+ static int16_t  array_avr[MAX_ARRAY_SIZE];
+#elif INPUT_RANGE_U16
+ static uint16_t array_avr[MAX_ARRAY_SIZE];
+#elif INPUT_RANGE_U8
+ static int8_t   array_avr[MAX_ARRAY_SIZE];
+#else
+ static uint8_t  array_avr[MAX_ARRAY_SIZE];
+#endif
+
 static mov_avr_t avr_data;
 
-int fma_init(int initial_val)
+avr_t fma_init(input_t initial_val)
 {
     avr_data.sum = 0;
     avr_data.pos = 0;
@@ -42,7 +55,7 @@ int fma_init(int initial_val)
     return avr_data.sum >> 4;
 }
 
-int fma_calc(int current_val)
+avr_t fma_calc(input_t current_val)
 {
   /* Subtract the oldest value from the sum */
   avr_data.sum -= array_avr[avr_data.pos];
