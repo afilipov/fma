@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     /* initialize random seed: */
     srand(time(NULL));
 
-    fma_init(32);
+    fma_init(0);
 
     for (unsigned int i=0; i < 1024; i++) {
         new_val = rand() % MAX_INPUT_VALUE;
