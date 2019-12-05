@@ -52,7 +52,7 @@ avr_t fma_init(input_t initial_val)
     }
 
     /* return initial average */
-    return avr_data.sum >> 4;
+    return avr_data.sum / sizeof(array_avr);
 }
 
 avr_t fma_calc(input_t current_val)
@@ -70,5 +70,5 @@ avr_t fma_calc(input_t current_val)
   avr_data.pos++;
 
   /* calcluate the average */
-  return avr_data.sum >> 4;
+  return avr_data.sum / sizeof(array_avr);
 }
