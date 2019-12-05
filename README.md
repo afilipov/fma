@@ -12,4 +12,12 @@ frequency components without any specific connection to time, although
 typically some kind of ordering is implied. Viewed simplistically it can be
 regarded as smoothing the data.
 
+Example:
 
+make
+
+./bin/fma_demo >data.txt
+
+gnuplot
+
+gnuplot> plot "data.txt" using 1:2 title 'Input' with lines, "data.txt" using 1:3 title 'Average' with lines
