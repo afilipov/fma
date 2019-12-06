@@ -62,7 +62,7 @@ OUTDLIB = $(PRJLIB)/lib$(OUTLIB).so
 OUTSLIB = $(PRJLIB)/lib$(OUTLIB).a
 
 # Place -D or -U options here
-DEF = -DNDEBUG -DIN_RANGE_S16 -DGNUPLOT_FORMAT
+DEF = -DNDEBUG -DIN_RANGE_S32 -DGNUPLOT_FORMAT
 
 # Define CPU flags "-march=cpu-type"
 CPU =

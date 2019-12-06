@@ -25,6 +25,8 @@
 
 #include "fast_moving_average.h"
 
+#define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
+
 #ifdef IN_RANGE_S32
  static int32_t  array_avr[MAX_ARRAY_SIZE];
 #elif IN_RANGE_U32
@@ -52,7 +54,7 @@ avr_t fma_init(input_t initial_val)
     }
 
     /* return initial average */
-    return avr_data.sum / sizeof(array_avr);
+    return avr_data.sum / MAX_ARRAY_SIZE;
 }
 
 avr_t fma_calc(input_t current_val)
@@ -69,5 +71,5 @@ avr_t fma_calc(input_t current_val)
     avr_data.pos++;
 
     /* calcluate the average */
-    return avr_data.sum / sizeof(array_avr);
+    return avr_data.sum / MAX_ARRAY_SIZE;
 }
