@@ -5,7 +5,7 @@ parameters of the moving average will be set accordingly. For example, it is
 often used in technical analysis of financial data, like stock prices,
 returns or trading volumes. It is also used in economics to examine gross
 domestic product, employment or other macroeconomic time series.
-Mathematically, a moving average is a type of convolution and so it can be
+Mathematically, a moving average is a type of convolution, and so it can be
 viewed as an example of a low-pass filter used in signal processing.
 When used with non-time series data, a moving average filters higher
 frequency components without any specific connection to time, although
